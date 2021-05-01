@@ -14,15 +14,11 @@ import javax.persistence.ManyToMany;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
-import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
 @EqualsAndHashCode
@@ -31,9 +27,9 @@ public class Produto implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer Id;
-	private String Nome;
-	private Double Preco;
+	private Integer id;
+	private String nome;
+	private Double preco;
 	
 	@JsonBackReference
 	@ManyToMany
@@ -42,4 +38,14 @@ public class Produto implements Serializable {
 			inverseJoinColumns = @JoinColumn(name = "categoria_id"))
 	private List<Categoria> categorias = new ArrayList<>();
 
+	public Produto() {
+		
+	}
+
+	public Produto(Integer id, String nome, Double preco) {
+		this.id = id;
+		this.nome = nome;
+		this.preco = preco;
+	}
+	
 }
