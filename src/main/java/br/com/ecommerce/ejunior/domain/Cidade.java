@@ -1,8 +1,6 @@
 package br.com.ecommerce.ejunior.domain;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,20 +8,19 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.persistence.ManyToOne;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
+@NoArgsConstructor
 @Getter
 @Setter
 @EqualsAndHashCode
-public class Produto implements Serializable {
+public class Cidade implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -31,24 +28,16 @@ public class Produto implements Serializable {
 	private Integer id;
 	@Column(name = "Name",nullable = false , length = 100)
 	private String nome;
-	@Column(name = "Preco",nullable = false , length = 60)
-	private Double preco;
 	
-	@JsonIgnore
-	@ManyToMany
-	@JoinTable(name = "PRODUTO_CATEGORIA",
-			joinColumns = @JoinColumn(name = "produto_id"),
-			inverseJoinColumns = @JoinColumn(name = "categoria_id"))
-	private List<Categoria> categorias = new ArrayList<>();
+	@ManyToOne
+	@JoinColumn(name = "estado_id")
+	private Estado estado;
 
-	public Produto() {
-		
-	}
-
-	public Produto(Integer id, String nome, Double preco) {
+	public Cidade(Integer id, String nome, Estado estado) {
 		this.id = id;
 		this.nome = nome;
-		this.preco = preco;
+		this.estado = estado;
 	}
 	
+
 }

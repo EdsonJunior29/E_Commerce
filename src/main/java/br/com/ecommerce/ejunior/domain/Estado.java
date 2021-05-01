@@ -9,46 +9,34 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.persistence.OneToMany;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
+@EqualsAndHashCode
 @Getter
 @Setter
-@EqualsAndHashCode
-public class Produto implements Serializable {
+@NoArgsConstructor
+public class Estado implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	@Column(name = "Name",nullable = false , length = 100)
 	private String nome;
-	@Column(name = "Preco",nullable = false , length = 60)
-	private Double preco;
 	
-	@JsonIgnore
-	@ManyToMany
-	@JoinTable(name = "PRODUTO_CATEGORIA",
-			joinColumns = @JoinColumn(name = "produto_id"),
-			inverseJoinColumns = @JoinColumn(name = "categoria_id"))
-	private List<Categoria> categorias = new ArrayList<>();
+	@OneToMany(mappedBy = "estado")
+	private List<Cidade> cidades = new ArrayList<>();
 
-	public Produto() {
-		
-	}
-
-	public Produto(Integer id, String nome, Double preco) {
+	public Estado(Integer id, String nome) {
 		this.id = id;
 		this.nome = nome;
-		this.preco = preco;
 	}
+	
 	
 }
