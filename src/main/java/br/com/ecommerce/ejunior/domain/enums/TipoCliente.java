@@ -2,27 +2,21 @@ package br.com.ecommerce.ejunior.domain.enums;
 
 public enum TipoCliente {
 
-	PessoaFisica(1 , "Pessoa Física"),
-	PessoaJuridica (2 , "Pessoa Jurídica");
+	PessoaFisica(1),
+	PessoaJuridica (2);
 	
 	//Criar duas variaveis internas
-	private Integer cod;
-	private String descricao;
+	private final int cod;
 
 	//Construtor 
 	//Obs: o construtor de um enum tem que ser do tipo private
-	private TipoCliente(int cod, String descricao) {
+	private TipoCliente(int cod) {
 		this.cod = cod;
-		this.descricao = descricao;
 	}
 
 	//Fazer apenas o método get
-	public Integer getCod() {
+	public int getCod() {
 		return cod;
-	}
-
-	public String getDescricao() {
-		return descricao;
 	}
 	
 	//Fazer uma operação que recebe um código e me retorna um objeto do TipoCliente já instanciado conforme solicitado.
