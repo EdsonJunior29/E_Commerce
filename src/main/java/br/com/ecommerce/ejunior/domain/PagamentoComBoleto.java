@@ -2,11 +2,14 @@ package br.com.ecommerce.ejunior.domain;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+
 import br.com.ecommerce.ejunior.domain.enums.EstadoPagamento;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@Entity
 @NoArgsConstructor
 @Getter
 @Setter
