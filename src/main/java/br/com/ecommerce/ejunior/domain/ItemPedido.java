@@ -1,10 +1,15 @@
 package br.com.ecommerce.ejunior.domain;
 
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+
 import lombok.NoArgsConstructor;
 
+@Entity
 @NoArgsConstructor
 public class ItemPedido {
 	
+	@EmbeddedId
 	private ItemPedidoPK id = new ItemPedidoPK();
 	
 	private Double desconto;
