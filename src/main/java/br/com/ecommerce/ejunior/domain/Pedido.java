@@ -2,6 +2,8 @@ package br.com.ecommerce.ejunior.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -42,4 +44,6 @@ public class Pedido implements Serializable{
 	
 	@OneToOne(cascade = CascadeType.ALL , mappedBy = "pedido")
 	private Pagamento pagamento;
+	
+	private Set<ItemPedido> itens = new HashSet<>();
 }
