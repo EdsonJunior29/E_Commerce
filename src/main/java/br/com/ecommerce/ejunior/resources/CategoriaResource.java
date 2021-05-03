@@ -2,10 +2,10 @@ package br.com.ecommerce.ejunior.resources;
 
 import java.net.URI;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -60,5 +61,16 @@ public class CategoriaResource {
 	public ResponseEntity<Void> delete(@PathVariable Integer id){
 		service.deleteById(id);
 		return ResponseEntity.noContent().build();
+	}
+	
+	@GetMapping(value = "/page")
+	public ResponseEntity<Page<CategoriaDTO>> findAll(
+			@RequestParam(value = "page" , defaultValue = "0") Integer page, 
+			@RequestParam(value = "linesPerPage" , defaultValue = "24") Integer linesPerPage, 
+			@RequestParam(value = "ordeBy" , defaultValue = "nome") String orderBy ,
+			@RequestParam(value = "page" , defaultValue = "ASC") String direction){
+		Page<Categoria> list = service.findPage(page, linesPerPage, orderBy , direction);
+		Page<CategoriaDTO> listDTO = list.map(obj -> new CategoriaDTO(obj));
+		return ResponseEntity.ok().body(listDTO);
 	}
 }
