@@ -2,6 +2,8 @@ package br.com.ecommerce.ejunior.resources;
 
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.ecommerce.ejunior.domain.Categoria;
+import br.com.ecommerce.ejunior.dto.CategoriaDTO;
 import br.com.ecommerce.ejunior.services.CategoriaService;
 
 @RestController
@@ -27,9 +30,10 @@ public class CategoriaResource {
 	private CategoriaService service;
 	
 	@GetMapping
-	public ResponseEntity<List<Categoria>> findAll(){
+	public ResponseEntity<List<CategoriaDTO>> findAll(){
 		List<Categoria> list = service.find();
-		return ResponseEntity.ok().body(list);
+		List<CategoriaDTO> listDTO = list.stream().map(obj -> new CategoriaDTO(obj)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDTO);
 	}
 	
 	@RequestMapping(value = "/{id}" , method = RequestMethod.GET)
