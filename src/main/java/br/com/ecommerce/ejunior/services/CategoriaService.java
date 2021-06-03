@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Sort.Direction;
 
 import br.com.ecommerce.ejunior.domain.Categoria;
+import br.com.ecommerce.ejunior.dto.CategoriaDTO;
 import br.com.ecommerce.ejunior.repositories.CategoriaRepository;
 import br.com.ecommerce.ejunior.services.exceptions.ObjectNotFoundException;
 
@@ -48,6 +49,11 @@ public class CategoriaService {
 	public Page<Categoria> findPage(Integer page, Integer linesPerPage, String orderBy , String direction){
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage , Direction.valueOf(direction), orderBy);
 		return repo.findAll(pageRequest);
+	}
+	
+	//Método auxiliar que instancia categoria através do CategoriaDTO
+	public Categoria fromDTO(CategoriaDTO objDto) {
+		return new Categoria (objDto.getId() ,objDto.getNome());
 	}
 	
 }
